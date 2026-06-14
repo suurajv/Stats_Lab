@@ -39,12 +39,7 @@ ggplot(data, aes(x = log10(Amount))) +
     y = "Frequency"
   ) +
   
-  theme_minimal() +
-  
-  theme(
-    plot.title = element_text(hjust = 0.5, face = "bold"),
-    axis.title = element_text(face = "bold")
-  )
+  theme_minimal() 
 
 # =========================================================
 # Top 3 Specialties

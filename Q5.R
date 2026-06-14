@@ -87,7 +87,7 @@ ggplot(yearly_avg,
     y = "Average Complaints"
   ) +
   
-  theme_minimal() +
+  theme_minimal() 
 
 # =========================================================
 # Interpretation
