@@ -1,19 +1,28 @@
-# Program 11 - Time Series Analysis of Australian Drug Sales
+# =========================================================
+# Experiment 11
+# Time Series Analysis - Australian Drug Sales Dataset
+# =========================================================
+
+# Import Libraries
 
 import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
-# Load dataset
-df = pd.read_csv("AusAntidiabeticDrug.csv")
+# =========================================================
+# Load Dataset
+# =========================================================
 
-# Convert date column to datetime
-df['date'] = pd.to_datetime(df['date'])
+df = pd.read_csv("AustraliaDrugSales.csv", parse_dates=['date'])
 
-# Set date as index
 df.set_index('date', inplace=True)
 
-# Time Series Model
+df.index.freq = 'MS'
+
+# =========================================================
+# Build Forecasting Model
+# =========================================================
+
 model = ExponentialSmoothing(
     df['value'],
     trend='add',
@@ -21,34 +30,33 @@ model = ExponentialSmoothing(
     seasonal_periods=12
 ).fit()
 
-# Forecast next 24 months
+# =========================================================
+# Forecast Next 24 Months
+# =========================================================
+
 forecast = model.forecast(24)
 
-# Plot
-plt.figure(figsize=(12,6))
+# =========================================================
+# Plot Graph
+# =========================================================
 
-plt.plot(df.index,
-         df['value'],
-         label='Actual Sales')
+plt.plot(df.index, df['value'],
+         color='blue',
+         label='Observed')
 
 plt.plot(model.fittedvalues.index,
          model.fittedvalues,
-         label='Fitted Values')
+         color='red',
+         label='Fitted')
 
-future_dates = pd.date_range(
-    start=df.index[-1] + pd.DateOffset(months=1),
-    periods=24,
-    freq='MS'
-)
-
-plt.plot(future_dates,
+plt.plot(forecast.index,
          forecast,
+         color='green',
          label='Forecast')
 
-plt.title("Australian Drug Sales Forecast")
+plt.title("Monthly Drug Sales in Australia")
 plt.xlabel("Date")
 plt.ylabel("Sales")
-plt.legend()
-plt.grid(True)
 
+plt.legend()
 plt.show()
