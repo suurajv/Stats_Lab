@@ -10,7 +10,7 @@ This repository contains my Statistics Lab programs, datasets, and related files
 |------------|----------------|
 | Q1.R | Q9.py |
 | Q2.R | Q10.py |
-| Q3.R | Q11.py *(Coming Soon)* |
+| Q3.R | Q11.py |
 | Q4.R |  |
 | Q5.R |  |
 | Q6.R |  |
